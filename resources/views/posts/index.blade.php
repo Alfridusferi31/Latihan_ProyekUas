@@ -21,21 +21,31 @@
                 </tr>
             </thead>
             <tbody>
+                @forelse ($posts as $post)
                 <tr>
                     <td class="text-center">
+                        @if($post->image)
+                        <img src="{{ asset('storage/' . $post->image) }}" class="rounded" style="width: 150px"
+                            alt="Post Image">
+                        @else
                         <img src="{{ asset('images/254721151_utb_kotak.png') }}" class="rounded" style="width: 150px"
                             alt="Post Image">
+                        @endif
                     </td>
-                    <td>Contoh Judul</td>
-                    <td>Contoh Konten</td>
+                    <td>{{ $post->title }}</td>
+                    <td>{{ $post->content }}</td>
                     <td class="text-center">
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="" method="POST">
-                            <a href="{{ route('posts.view', 1)}}" class="btn btn-dark btn-sm">SHOW</a>
-                            <a href="{{ route('posts.edit', 1)}}" class="btn btn-primary btn-sm">EDIT</a>
+                        <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                            action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                            <a href="{{ route('posts.view', $post->id)}}" class="btn btn-dark btn-sm">SHOW</a>
+                            <a href="{{ route('posts.edit', $post->id)}}" class="btn btn-primary btn-sm">EDIT</a>
+                            @csrf
+                            @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">HAPUS</button>
                         </form>
                     </td>
                 </tr>
+                @empty
                 <!-- Jika tidak ada data -->
                 <tr>
                     <td colspan="4" class="text-center">
@@ -44,21 +54,12 @@
                         </div>
                     </td>
                 </tr>
+                @endforelse
             </tbody>
         </table>
         <!-- Pagination -->
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
+            {{ $posts->links() }}
         </nav>
     </div>
 </div>

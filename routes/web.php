@@ -8,9 +8,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('posts', PostController::class);
+// Rute untuk posts dengan menggunakan resource controller kecuali 'show'
+Route::resource('posts', PostController::class)->except(['show']);
+
+// Rute khusus untuk view, edit, dan update
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-Route::get('/posts/{id}/view', [PostController::class, 'view'])->name('posts.view');
-Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::get('/posts/{post}/view', [PostController::class, 'view'])->name('posts.view');
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
+// Rute untuk create
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+
+// Rute untuk login (jika diperlukan)
+Route::get('/login', [PostController::class, 'login'])->name('posts.login');
 
 ?>

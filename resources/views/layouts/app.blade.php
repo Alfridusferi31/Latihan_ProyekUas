@@ -5,4 +5,3 @@
     </div>
 </div>
 @include('posts.footer')
-
