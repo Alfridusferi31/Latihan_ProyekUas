@@ -5,21 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+// use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class PostController extends Controller
 {
+   
     public function index(): View
     {
-        $posts = Post::latest()->paginate(5);
+        $posts = Post::latest()->paginate(2);
         return view('posts.index', ['posts' => $posts]);
     }
+    public function generatePDF()
+    {
+        $posts = Post::all();
+        $pdf = PDF::loadView('posts.pdf', compact('posts'));
+        return $pdf->download('posts.pdf');
+    }
     public function show($id)
-{
+    {
     $post = Post::findOrFail($id);
 
     return view('posts.show', ['post' => $post]);
-}
+    }
 
 
     public function create()

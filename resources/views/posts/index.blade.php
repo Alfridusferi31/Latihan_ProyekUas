@@ -5,11 +5,13 @@
 @section('header-title', 'Data Posts')
 
 @section('content')
+
 <div class="card border-0 shadow-sm rounded">
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="card-title text-primary">Data Posts</h5>
             <a href="{{ route('posts.create') }}" class="btn btn-success">TAMBAH POST</a>
+            <a href="{{ route('posts.pdf') }}" class="btn btn-primary">Generate PDF</a>
         </div>
         <table class="table table-striped table-hover">
             <thead class="bg-primary text-white">

@@ -16,11 +16,6 @@ Route::get('/posts/create', [PostController::class, 'create'])->name('posts.crea
 Route::get('/posts/{post}/view', [PostController::class, 'view'])->name('posts.view');
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-
-// Rute untuk create
-Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-
-// Rute untuk login (jika diperlukan)
 Route::get('/login', [PostController::class, 'login'])->name('posts.login');
-
+Route::get('/pdf', [PostController::class, 'generatePDF'])->name('posts.pdf');
 ?>
