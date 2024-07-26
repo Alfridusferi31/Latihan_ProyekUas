@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Login')
+@section('title', 'Register')
 
-@section('header-title', 'Login')
+@section('header-title', 'Register')
 
 @section('content')
 <style>
@@ -19,8 +19,17 @@
         <div class="col-md-6">
             <div class="card custom-card">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('profile.register') }}">
                         @csrf
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="nama" placeholder="Nama" name="nama"
+                                value="{{ old('name') }}" required autofocus>
+                            @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Email Address" name="email"
@@ -40,19 +49,18 @@
                         </div>
 
                         <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" {{ old('remember') ? 'checked' : '' }}
-                                    name="remember" id="remember">
-                                <label class="form-check-label" for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
+                            <label for="cpassword" class="form-label">Konfirmasi Password</label>
+                            <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password"
+                                name="password_confirmation" required>
+                            @error('password_confirmation')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" class="btn btn-primary">Register</button>
                             or
-                            <a href="{{ route('profile.register') }}">Register</a>
+                            <a href="{{ route('login') }}">Login</a>
                         </div>
                     </form>
                 </div>
